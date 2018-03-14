@@ -1,0 +1,29 @@
+ # Three cannibals and three anthropologists have to cross a river. The boat they have is only big enough for two people. If at any point in time there are more cannibals on one side of the river than anthropologists, the cannibals will eat them. What plan can the anthropologists use for crossing the river so they don't get eaten? (Remember! the boat can't cross the river by itself, someone has to be in it to row it across)
+
+# Note that if a boat with a cannibal and an anthropologist travels to a shore with one cannibal on it, then no. of cannibals > no. of anthropologists, even if you say the anthropologist immediately takes the boat back. 
+
+Side 1    |   Side 2
+----------------------
+AAA CCC   |
+        CC--> 
+AAA C     |   CC
+        <--C
+AAA CC    |   C
+        CC-->
+AAA       |   CCC
+        <--C
+AAA C     |   CC
+        AA-->
+A   C     |   AA CC
+        <--AC
+AA CC     |   A  C
+        AA-->
+CC        |   AAA C
+        <--C
+CCC       |   AAA
+        CC-->
+C         |   AAA CC
+        <--C
+CC        |   AAA C
+        CC-->
+          |   AAA CCC
