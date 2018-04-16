@@ -19,8 +19,11 @@
 def order_weight(strng)
   totals = Hash.new
   final_order = ""
+  
+  p original_order = strng.strip.split(/[\s]+/)
+  p original_order.group_by{ |e| e }.select { |k, v| v.size > 1 }.map(&:first,:last.count )
 
-  strng.strip.split(/[\s]+/).each do |num|
+  original_order.each do |num|
     totals[num.to_i] = num.split("").map{|n| n.to_i}.sum
   end
 
