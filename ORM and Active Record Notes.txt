@@ -1,0 +1,170 @@
+
+Active Record and ORM
+
+==============================================================================================================================
+
+1.
+ What Is the active record
+   Active record is the Model of MVC
+   facilitates the creation and use of objects whose data requires storage to DB
+1.1
+ Active Record Pattern
+   objects carry data and behaviors that operate on that data.
+1.2
+ ORM
+   Connects objects in application to a database
+1.3
+ Active Record as ORM
+   Represent models and their data.
+   Represent associations between these models.
+   Represent inheritance hierarchies through related models.
+   Validate models before they get persisted to the database.
+   Perform database operations in an object-oriented fashion.
+
+2.
+ Convention of Configuration
+   Many frameworks require a lot of configuration code.
+   Rails and Active record doesn't require configuration due to most aspects following similar   conventions
+   Only when convention is deviated does configuration need to be implemented.
+2.1
+ Naming Conventions
+   Uses standard naming conventions to find the respective database table
+     Project - projects
+     FloorPlan - floor_plans
+     Technology - technologies
+     Mouse - mice
+2.2
+ Schema Conventions
+   Foreign keys uses singularized table names id to create association with tables
+     project_id
+     floor_plan_id
+     technology_id
+     mouse_id
+   Primary Keys
+     Active record creates these by default and are of integer data type
+       Project.Last = title:=info id:=1
+   Optional but reserved
+     created_at - Automatically gets set to the current date and time when the record is first created.
+     
+     updated_at - Automatically gets set to the current date and time whenever the record is updated.
+     
+     lock_version - Adds optimistic locking to a model.
+     type - Specifies that the model uses Single Table Inheritance.
+     (association_name)_type - Stores the type for polymorphic associations.
+     (table_name)_count - Used to cache the number of belonging objects on associations. For example, a comments_count column in an Article class that has many instances of Comment will cache the number of existent comments for each article.
+
+==============================================================================================================================
+
+- ORM: Object Relational Mapping - Active Record IS an API between ruby objects and the SQL database
+- All models < ApplicationRecord < ActiveRecord::Base
+- CRUD is an acronym for the four verbs we use to operate on data: Create, Read, Update, Delete
+- HTTP requests are routed to the controller and paired to the corresponding CRUD action
+
+- CREATE: POST
+
+	- an Active Record object is created and saved as a new record in the database. 
+	- the New method will create and return a new object but won’t save automatically to the database
+	- a call to model.save will commit it to the database
+
+- READ: GET
+
+	- active record API calls to access data in the database
+	- Active record will translate ruby OOP calls into SQL GET queries
+
+		User.all => 
+      SELECT * 
+      FROM USER
+
+		User.First
+
+		User.find_by(name: ‘David’)
+
+- UPDATE: PUT/PATCH
+
+	- the active record API calls to change and save data in the database, once an active record object has been retrieved
+	- calls are made in Ruby OOP syntax translated to SQL
+
+		user = User.find_by(name: ‘David’)
+		user.name = “Dave”
+		user.save
+
+			OR
+
+		user = User.find_by(name: ‘David’)
+		user.update(name: ‘Dave’)
+
+- DESTROY: DELETE
+
+	- Likewise, once retrieved an Active Record object can be destroyed which removes it from the database.
+
+		user = User.find_by(name: 'David')
+		user.destroy
+
+==============================================================================================================================
+
+VALIDATIONS
+Can validate the state of data before it is entered into the datebase
+
+Validation triggers (create, save, update) can be used with a band to raise an exception
+
+Upon execution there are four main types of validations
+model-level validations
+  best way to ensure only valid data is passed
+  cannot be bypassed by end users
+  convenient to test and maintain
+
+database constraints
+  database dependent
+  good for API or use with other applications
+
+client-side validations
+  unreliable if used on its own
+  combined with other techniques it can be good to give instant user feedback
+
+controller-level validations
+  can be tempting, but often lead to unorganized code.
+  want skinny controllers, and fat models
+
+CALLBACKS
+Allows you to attach code to specific events in the life-cycle of data
+Callbacks can be called at:
+  save
+  update
+  delete
+  valid?
+  load from database
+
+  before_validation
+  after_validation
+  before_save
+  around_save
+  after_save
+  before_create
+  around_create
+  after_create
+  before_update
+  around_update
+  after_update
+  after_commit/after_rollback
+  before_destroy
+  around_destroy
+  after_destroy (edited)
+
+Rational callbacks
+  Kill the child, before the parent
+  Allows you to call dependent: destroy
+
+Condtional callbacks
+  Allows for conditionals (if/else) to be called for the callback
+
+Callback classes
+  Can encapsulate a callback inside of a class to use it in other models
+  
+MIGRATIONS
+Migrations are stored in files that execute against any database that ActiveRecord supports
+Each migration is given a UTC time stamp followed by the name of the migration
+
+YYYYMMDDHHMMSS_create_table.rb
+
+Rails uses the timestamp to determine which migration is run first (edited)
+Can use migrations to add, remove, or modify essentially any aspect of a database table
