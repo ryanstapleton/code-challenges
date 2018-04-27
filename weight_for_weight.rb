@@ -31,6 +31,10 @@ def order_weight(strng)
   final_order.strip
 end
 
+
+
+
+
 # Repl.it ruminations
 strng = "2000 11 11 56 65 74 100 99 68 86 180 90"
 p separated_weights = strng.strip.split(/[\s]+/).map!{|e| e.to_i}
