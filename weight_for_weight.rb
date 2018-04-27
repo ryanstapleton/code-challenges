@@ -30,3 +30,46 @@ def order_weight(strng)
   totals.sort_by{|a,b| b}.each{|pair| final_order << pair[0].to_s + " "}
   final_order.strip
 end
+
+# Repl.it ruminations
+strng = "2000 11 11 56 65 74 100 99 68 86 180 90"
+p separated_weights = strng.strip.split(/[\s]+/).map!{|e| e.to_i}
+
+summed_value_of = Hash.new
+final_array = Array.new
+result = String.new
+
+separated_weights.each do |num|
+  summed_value_of[num] = num.digits.sum
+end
+
+p summed_value_of
+
+separated_weights.each do |weight|
+  final_array << weight if final_array.empty?
+  
+  final_array.each_with_index do |item, index|
+    if (summed_value_of[weight] == summed_value_of[item])
+      if weight.to_s < item.to_s
+        final_array.insert(weight, index)
+      elsif weight.to_s > item.to_s
+        final_array.insert(weight, (index + 1))
+      else
+        final_array.insert(weight, index)
+      end
+    elsif summed_value_of[weight] < summed_value_of[item]
+      final_array.insert(weight, index)
+    end
+  end
+end
+
+p final_array
+
+# totals.sort_by{|a,b| b}.each{|pair| result << pair[0].to_s + " "}
+# result.strip
+
+
+# take each element, find it's weighted value in the Hash
+# compare the weighted value to the weighted value of the existing values in the array
+# put the value in the array where its less than the next value
+# [2, 8, 11]
