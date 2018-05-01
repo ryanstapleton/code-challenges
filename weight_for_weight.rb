@@ -16,20 +16,16 @@
 # Don't modify the input
 
 def order_weight(strng)
-  separated_weights = strng.strip.split(/[\s]+/).map!{|e| e.to_i}
   summed_value_of = Hash.new
   result = String.new
-
-  # Hash map, weight: sum
-  separated_weights.each do |num|
-    summed_value_of[num] = num.digits.sum
-  end
-  
-  sorted_arr = separated_weights.sort_by {|weight| [summed_value_of[weight], weight.to_s]}
-  
-  sorted_arr.each { |e|
-    result << e.to_s + " "
-  }
-
+  strng.strip.split(/[\s]+/).map!{ |e| e.to_i }                     # string to array of Ints
+    .each { |num| summed_value_of[num] = num.digits.sum }         # Create Hash map, weight: sum
+    .sort_by { |weight| [summed_value_of[weight], weight.to_s] }  # Sort the array by hash map, then by string
+    .each { |e| result << e.to_s + " " }                          # return to string
   result.strip
 end
+
+# Most Efficient
+# def order_weight(string)
+#   string.split.sort_by { |n| [n.chars.map(&:to_i).reduce(:+), n] }.join(" ")
+# end
