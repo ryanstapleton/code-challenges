@@ -20,16 +20,17 @@
 
 # The middle character(s) of the word represented as a string.
 
-def get_middle(s)
+# Pseudocode
   # if odd
     # max num divide by two, round down
   # if even
     # max num divide by two, (n and n-1)
 
+def get_middle(s)
   word_array = s.strip.split(//)
-  if (word_array.count % 2) == 1
+  if word_array.count % 2 == 1
     return s[word_array.count / 2] 
-  else
-    return s[word_array.count / 2 - 1, word_array.count / 2 ] 
+  elsif word_array.count % 2 == 0
+    return s[(word_array.count / 2 - 1)..(word_array.count / 2)] 
   end
 end
