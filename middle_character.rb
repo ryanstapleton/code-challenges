@@ -21,9 +21,15 @@
 # The middle character(s) of the word represented as a string.
 
 def get_middle(s)
-  s.split(//)
   # if odd
     # max num divide by two, round down
   # if even
     # max num divide by two, (n and n-1)
+
+  word_array = s.strip.split(//)
+  if (word_array.count % 2) == 1
+    return s[word_array.count / 2] 
+  else
+    return s[word_array.count / 2 - 1, word_array.count / 2 ] 
+  end
 end
