@@ -14,38 +14,22 @@
 # Notes
 # it may happen that the input string have leading, trailing whitespaces and more than a unique whitespace between two consecutive numbers
 # Don't modify the input
-# For C: The result is freed.
 
 def order_weight(strng)
-  p strng
   separated_weights = strng.strip.split(/[\s]+/).map!{|e| e.to_i}
-  
   summed_value_of = Hash.new
   result = String.new
 
+  # Hash map, weight: sum
   separated_weights.each do |num|
     summed_value_of[num] = num.digits.sum
   end
   
-  final_array = separated_weights.sort_by {|weight| summed_value_of[weight]}
+  sorted_arr = separated_weights.sort_by {|weight| [summed_value_of[weight], weight.to_s]}
   
-  final_array.each_index { |i|
-    if summed_value_of[final_array[i]] == summed_value_of[final_array[i+1]]
-      if final_array[i].to_s > final_array[i+1].to_s
-        final_array[i], final_array[i+1] = final_array[i+1], final_array[i]
-      end
-    end
-    result << final_array[i].to_s + " "
+  sorted_arr.each { |e|
+    result << e.to_s + " "
   }
-  
+
   result.strip
 end
-
-# totals.sort_by{|a,b| b}.each{|pair| result << pair[0].to_s + " "}
-# result.strip
-
-
-# take each element, find it's weighted value in the Hash
-# compare the weighted value to the weighted value of the existing values in the array
-# put the value in the array where its less than the next value
-# [2, 8, 11]
