@@ -17,57 +17,29 @@
 # For C: The result is freed.
 
 def order_weight(strng)
-  totals = Hash.new
-  final_order = ""
+  p strng
+  separated_weights = strng.strip.split(/[\s]+/).map!{|e| e.to_i}
   
-  p original_order = strng.strip.split(/[\s]+/)
-  p original_order.group_by{ |e| e }.select { |k, v| v.size > 1 }.map(&:first,:last.count )
+  summed_value_of = Hash.new
+  result = String.new
 
-  original_order.each do |num|
-    totals[num.to_i] = num.split("").map{|n| n.to_i}.sum
+  separated_weights.each do |num|
+    summed_value_of[num] = num.digits.sum
   end
-
-  totals.sort_by{|a,b| b}.each{|pair| final_order << pair[0].to_s + " "}
-  final_order.strip
-end
-
-
-
-
-
-# Repl.it ruminations
-strng = "2000 11 11 56 65 74 100 99 68 86 180 90"
-p separated_weights = strng.strip.split(/[\s]+/).map!{|e| e.to_i}
-
-summed_value_of = Hash.new
-final_array = Array.new
-result = String.new
-
-separated_weights.each do |num|
-  summed_value_of[num] = num.digits.sum
-end
-
-p summed_value_of
-
-separated_weights.each do |weight|
-  final_array << weight if final_array.empty?
   
-  final_array.each_with_index do |item, index|
-    if (summed_value_of[weight] == summed_value_of[item])
-      if weight.to_s < item.to_s
-        final_array.insert(weight, index)
-      elsif weight.to_s > item.to_s
-        final_array.insert(weight, (index + 1))
-      else
-        final_array.insert(weight, index)
+  final_array = separated_weights.sort_by {|weight| summed_value_of[weight]}
+  
+  final_array.each_index { |i|
+    if summed_value_of[final_array[i]] == summed_value_of[final_array[i+1]]
+      if final_array[i].to_s > final_array[i+1].to_s
+        final_array[i], final_array[i+1] = final_array[i+1], final_array[i]
       end
-    elsif summed_value_of[weight] < summed_value_of[item]
-      final_array.insert(weight, index)
     end
-  end
+    result << final_array[i].to_s + " "
+  }
+  
+  result.strip
 end
-
-p final_array
 
 # totals.sort_by{|a,b| b}.each{|pair| result << pair[0].to_s + " "}
 # result.strip
