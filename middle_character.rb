@@ -27,10 +27,11 @@
     # max num divide by two, (n and n-1)
 
 def get_middle(s)
-  word_array = s.strip.split(//)
-  if word_array.count % 2 == 1
-    return s[word_array.count / 2] 
-  elsif word_array.count % 2 == 0
-    return s[(word_array.count / 2 - 1)..(word_array.count / 2)] 
-  end
+  length = s.split(//).count 
+  length % 2 == 1 ? s[length / 2] : s[(length / 2 - 1)..(length / 2)]
 end
+
+# Most Efficient
+# def get_middle(s)
+#   s[(s.size-1)/2..s.size/2]
+# end
