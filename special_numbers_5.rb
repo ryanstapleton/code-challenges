@@ -38,3 +38,8 @@
 def special_number(n)
   n.to_s.gsub!(/[012345]/, '') == '' ? 'Special!!' : 'NOT!!'
 end
+
+# Alternative solution
+# def special_number(n)
+#   n.digits.all? { |dgt| dgt <= 5 } ? 'Special!!' : 'NOT!!'
+# end
