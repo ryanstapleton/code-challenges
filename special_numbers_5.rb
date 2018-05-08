@@ -36,5 +36,9 @@
 # 7- specialNumber(709) ==> return "NOT!!"
 
 def special_number(n)
-  #your code here
+  return "NOT!!" if n.to_s.gsub!(/[12345]/, '').nil?
+  return "Special!!" if n.to_s.gsub!(/[12345]/, '') == ""
+  return "NOT!!"
 end
+
+p special_number(515035303120510)
