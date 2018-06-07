@@ -39,6 +39,12 @@ def product_array(arr)
   r_arr
 end
 
+# Other Solution
+# def product_array(numbers)
+#   prod = numbers.reduce(:*)
+#   numbers.map { |x| prod / x }
+# end
+
 describe "Basic Tests:" do
   it "Calculates products correctly" do
     expect(product_array([12, 20])).to eq([20,12])
